@@ -1,0 +1,10 @@
+
+.underline:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.del{
+    color: #ff0000;
+    text-align: center;
+}
