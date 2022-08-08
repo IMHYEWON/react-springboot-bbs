@@ -1,5 +1,6 @@
 package lotte.com.a.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +53,16 @@ public class BbsService {
 		return dao.getComments(bbs_seq);
 	}
 	
-	public boolean delComment(int bbs_seq){
-		int n = dao.delComment(bbs_seq);
+	public boolean delComments(int bbs_seq){
+		int n = dao.delComments(bbs_seq);
 		return n>0;
 	}
+	
+	public boolean delOneComment(HashMap<String, Integer> map){
+		int n = dao.delOneComment(map);
+		return n>0;
+	}
+	
 }
 
 

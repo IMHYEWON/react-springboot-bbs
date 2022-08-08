@@ -109,11 +109,15 @@
 		where bbs_seq = #{bbs_seq};
 	</select>
 	
-	<delete id="delComment" parameterType="java.lang.Integer">
+	<delete id="delComments" parameterType="java.lang.Integer">
 		delete from comments
 		where bbs_seq = #{bbs_seq};
 	</delete>
 
+	<delete id="delOneComment" parameterType="java.util.HashMap">
+		delete from comments
+		where bbs_seq = #{bbs_seq} and cmm_seq = #{cmm_seq};
+	</delete>
 </mapper>
 
 

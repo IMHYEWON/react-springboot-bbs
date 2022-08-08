@@ -151,20 +151,40 @@ public class BbsController {
 	}
 	
 	/**
-	 * 댓글 삭제하기
+	 * 댓글 전체 삭제하기
 	 * @param seq
 	 * @return
 	 */
 	@RequestMapping(value = "/delComment", method = RequestMethod.GET)
 	public String delComment(int seq) {
 		System.out.println("BbsController delComment " + new Date());
-		
-		boolean b = service.delComment(seq);
+
+		boolean b = service.delComments(seq);
 		if(!b) {
 			return "NO";
 		}
 		return "OK";
 	}
+	
+	/**
+	 * 댓글 하나 삭제하기
+	 * @param seq
+	 * @return
+	 */
+	@RequestMapping(value = "/delOneComment", method = RequestMethod.GET)
+	public String delOneComment(int bbs_seq, int cmm_seq) {
+		System.out.println("BbsController delOneComment " + new Date());
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+	    map.put("bbs_seq", bbs_seq);
+	    map.put("cmm_seq", cmm_seq);
+	    
+		boolean b = service.delOneComment(map);
+		if(!b) {
+			return "NO";
+		}
+		return "OK";
+	}
+	
 	
 	/**
 	 * 댓글 조회하기
@@ -176,6 +196,9 @@ public class BbsController {
 		System.out.println("BbsController getComments " + new Date());
 		
 		List<CommentsDto> list = service.getComments(seq);
+		for (CommentsDto commentsDto : list) {
+			System.out.println(commentsDto.getBbs_seq());
+		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("comments", list);
 		return map;
