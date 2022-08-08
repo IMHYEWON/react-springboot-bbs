@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto+Slab:wght@332;400&display=swap');
+* {
+  font-family: 'Roboto Slab', 'Nanum Gothic', serif;
+}
+
 th{
 	background-color: #007bff;
 	color: white;
 }
 pre { /* 자동줄바꿈 설정 */
+    font-family: 'Roboto Slab', 'Nanum Gothic', serif;
+    font-size: small;
   	white-space: pre-wrap;
     word-break: break-all;
     overflow: auto;
@@ -10,6 +17,10 @@ pre { /* 자동줄바꿈 설정 */
 .title{
     font-size: 22px;
     font-weight: bold;
+}
+.info{
+    font-size:small;
+    color:grey;
 }
 .content{
     font-size: 20px;

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -102,7 +103,7 @@ public class BbsController {
 	 */
 	@RequestMapping(value = "/getBbs", method = RequestMethod.GET)
 	public BbsDto getBbs(int seq) {
-		System.out.println("BbsController getBbs " + new Date());		
+		System.out.println("BbsController getBbs " + seq + " / " + new Date());		
 		return service.getBbs(seq);
 	}
 	
@@ -111,8 +112,8 @@ public class BbsController {
 	 * @param param
 	 * @return
 	 */
-	@RequestMapping(value = "/getBbsReactList", method = RequestMethod.GET)
-    public Map<String, Object> getBbsReactList(BbsParam param) {
+	@RequestMapping(value = "/getBbsReactList", method = RequestMethod.POST)
+    public Map<String, Object> getBbsReactList(@RequestBody BbsParam param) {
        System.out.println("BbsController getBbsReactList " + new Date());
 
        // 페이지 설정
@@ -138,8 +139,8 @@ public class BbsController {
 	 * @param comment
 	 * @return
 	 */
-	@RequestMapping(value = "/writeComment", method = RequestMethod.GET)
-	public String writeComment(CommentsDto comment) {
+	@RequestMapping(value = "/writeComment", method = RequestMethod.POST)
+	public String writeComment(@RequestBody CommentsDto comment) {
 		System.out.println("BbsController writeComment " + new Date());
 		
 		boolean b = service.writeComment(comment);
@@ -171,11 +172,13 @@ public class BbsController {
 	 * @return
 	 */
 	@RequestMapping(value = "/getComments", method = RequestMethod.GET)
-	public List<CommentsDto> getComments(int seq){
+	public Map<String, Object> getComments(int seq){
 		System.out.println("BbsController getComments " + new Date());
 		
 		List<CommentsDto> list = service.getComments(seq);
-		return list;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("comments", list);
+		return map;
 	}
 	
 }

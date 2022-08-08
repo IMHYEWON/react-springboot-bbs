@@ -98,7 +98,7 @@
 	<insert id="writeComment"
 		parameterType="lotte.com.a.dto.CommentsDto">
 		insert into comments(bbs_seq, id, comment, wdate, udate)
-		values(1, #{id}, #{comment}, now(), now());
+		values(#{bbs_seq}, #{id}, #{comment}, now(), now());
 	</insert>
 
 	<select id="getComments"
