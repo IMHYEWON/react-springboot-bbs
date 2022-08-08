@@ -24,6 +24,7 @@ export default function Bbsdetail(){
             // get Comments 댓글
             call("/getComments?seq=" + s, "GET")
                 .then(data=>{
+                    console.log(data.comments);
                     setCommentLists(data.comments);
                 })
 
@@ -60,8 +61,9 @@ export default function Bbsdetail(){
             </table>
 
             <br/><br/>
+            <div style={{padding : '0 0 0.75em 0.2em'}}>
             <Comments CommentLists={CommentLists} bbs_seq={seq} refreshFunction={updateComment} />
-
+            </div>
             </div>
         </div>
     )
