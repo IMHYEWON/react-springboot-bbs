@@ -21,7 +21,7 @@ export function call(api, method, request) {
   });
   } else {
     console.log(options.params);
-    return axios.get(options.url, options.params, {
+    return axios.get(options.url, request, {
       headers: { "Content-Type": `application/json`}
     })
     .then(res => { 

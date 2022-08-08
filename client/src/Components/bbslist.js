@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Pagination from "react-js-pagination";
@@ -22,6 +22,7 @@ function Bbslist(){
     // link 용(함수)
     let history = useNavigate();
 
+    // Apiservice.js로 따로 뺌
     const fetchData = async (c, s, p) => {
         
         call("/getBbsReactList", 'POST', { "choice":c, "search":s, "pageNumber":(p - 1) })
@@ -40,8 +41,6 @@ function Bbslist(){
     const searchChange = (e) => setSearchValue(e.target.value);
 
     const searchBtn = () => {
-        //alert(choiceValue);
-        //alert(searchValue);
 
         history('/bbslist');
 
@@ -84,9 +83,9 @@ function Bbslist(){
             <table className="table table-hover">
             <thead>
             <tr>
-                <th>num</th>
-                <th>title</th>
-                <th>id</th>
+                <th>No.</th>
+                <th>Contents</th>
+                <th>Writer</th>
             </tr>
             </thead>
 

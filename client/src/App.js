@@ -5,6 +5,9 @@ import Bbslist from "./Components/bbslist";
 import Bbswrite from "./Components/bbswrite";
 import Login from "./Components/login";
 import Signup from "./Components/Signup";
+import Footer from "./Components/footer";
+import { Typography } from '@material-ui/core';
+
 // import './main.css';
 
 function App() {
@@ -12,13 +15,13 @@ function App() {
     <div>
       <header className="py-4">
         <div className="container text-center">
-          <img alt="" src="open-holy.jpg" width='960' height='150' />
+          <h4>Bulletin Board</h4>
         </div>
       </header>
 
       <BrowserRouter>
 
-      <nav className="navbar navbar-expand-md navbar-dark bg-info sticky-top">
+      <nav className="navbar navbar-expand-md bg-light navbar-light sticky-top">
           <div className="container">
 
             <div className="collapse navbar-collapse" id="navbar-content">
@@ -84,19 +87,7 @@ function App() {
 
       </BrowserRouter>
 
-      <footer className="py-4 bg-info text-light">
-        <div className="container text-center">
-          <ul className="nav justify-content-center mb-3">
-            <li className="nav-item">
-              <a className="nav-link" href="/">Top</a>
-            </li>
-          </ul>
-
-          <p>
-            <small>Copyright &copy;Graphic Arts</small>
-          </p>
-        </div>
-      </footer>
+      <Footer />
       
     </div>
   );
@@ -109,21 +100,5 @@ function Home(){
     </div>
   )
 }
-
-// function Bbslist(){
-//   return (
-//     <div>
-//       <h2>Bbslist</h2>
-//     </div>
-//   )
-// }
-
-// function Bbswrite(){
-//   return (
-//     <div>
-//       <h2>Bbswrite</h2>
-//     </div>
-//   )
-// }
 
 export default App;

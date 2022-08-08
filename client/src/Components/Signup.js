@@ -20,7 +20,13 @@ function SignUp() {
   
 
   const onConfirmIdHandler = () => {
-    checkid({id : Id }) == true ? setConfirmId(true) : setConfirmId(false);
+    checkid({id : Id })
+    .then(res => { 
+      res == true ? setConfirmId(true): setConfirmId(false);
+    })
+    .catch(function(){
+      console.log("error");
+    })
   }
 
   function handleSubmit(event) {

@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto+Slab:wght@332;400&display=swap');
+* {
+  font-family: 'Roboto Slab', 'Nanum Gothic', serif;
+}
+
 .App {
+ 
   text-align: center;
 }
 
@@ -25,7 +31,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #f1eedd;
 }
 
 @keyframes App-logo-spin {

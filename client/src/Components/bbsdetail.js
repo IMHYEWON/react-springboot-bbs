@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
+import { call } from '../Service/ApiService';
 
 import "./bbsdetail.css";
 
@@ -18,28 +19,19 @@ export default function Bbsdetail(){
 
     useEffect( () => {
         const fetchData = async (s) => {
-            await axios.get("http://localhost:3000/getBbs", { params:{ "seq":s } })
-            //await axios.get("http://localhost:3000/getBbs", { params:{ "seq":1 } })
-                .then(function(resp){
-                   //console.log(resp.data);
-                   
-                   setBbs(resp.data);
-                })
-                .catch(function(error){
-                    console.log(error);
+            // get bbs 글 
+            call("/getBbs?seq=" + s, "GET")
+                .then(data=>{
+                    setBbs(data);
                 })
 
+            // get Comments 댓글
+            call("/getComments?seq=" + s, "GET")
+                .then(data=>{
+                    console.log(data);
+                    //setBbs(data);
+                })
 
-            await axios.get("http://localhost:3000/getComments", { params:{ "seq":s } })
-            //await axios.get("http://localhost:3000/getBbs", { params:{ "seq":1 } })
-                .then(function(resp){
-                    console.log("comments load!!!");
-                       
-                    setBbs(resp.data);
-                })
-                .catch(function(error){
-                        console.log(error);
-                })
             }
         fetchData(seq);
     },[]);
@@ -47,9 +39,17 @@ export default function Bbsdetail(){
     
 
     // 댓글 작성
-    function writeComment() {
+    function onCommentHandler() {
         const fetchData = async () => {
-            await axios.get("http://localhost:3000/writeComment", { params:{ "id":"hyewobn", "seq":1, "comment":comment } })
+        //     call("/writeComment", "POST", {seq:seq, id:})
+        //     .then(data=>{
+        //         console.log(data);
+        //         //setBbs(data);
+        //     })
+
+        // }
+
+        await axios.get("http://localhost:3000/writeComment", { params:{ "id":"hyewobn", "seq":1, "comment":comment } })
                 .then(function(){
 
                    alert("댓글 달기");
@@ -116,10 +116,10 @@ export default function Bbsdetail(){
                         <tr>
                             <th colspan="2">작성자</th>
                             <td>
-                                <input type="text" id="id" size="50px" value="eun" />
+                                <input type="text" id="id" size="50px" value="" />
                             </td>
                             <td align="right">
-                                <button type="button" id="btn" className="btn btn-primary" onClick={writeComment}>작성</button>
+                                <button type="button" id="btn" className="btn btn-primary" onClick={onCommentHandler}>작성</button>
                             </td>
                         </tr>
                     </thead>
