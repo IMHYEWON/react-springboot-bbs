@@ -98,7 +98,7 @@
 	<insert id="writeComment"
 		parameterType="lotte.com.a.dto.CommentsDto">
 		insert into comments(bbs_seq, id, comment, wdate, udate)
-		values(#{bbs_seq}, #{id}, #{comment}, now(), now());
+		values(#{bbsSeq}, #{id}, #{comment}, now(), now());
 	</insert>
 
 	<select id="getComments"
@@ -106,17 +106,17 @@
 		resultType="lotte.com.a.dto.CommentsDto">
 		select bbs_seq, cmm_seq, id, comment, wdate, udate
 		from comments
-		where bbs_seq = #{bbs_seq};
+		where bbs_seq = #{bbsSeq};
 	</select>
 	
 	<delete id="delComments" parameterType="java.lang.Integer">
 		delete from comments
-		where bbs_seq = #{bbs_seq};
+		where bbs_seq = #{bbsSeq};
 	</delete>
 
-	<delete id="delOneComment" parameterType="java.util.HashMap">
+	<delete id="delOneComment" parameterType="java.lang.Integer">
 		delete from comments
-		where bbs_seq = #{bbs_seq} and cmm_seq = #{cmm_seq};
+		where cmm_seq = #{cmmSeq};
 	</delete>
 </mapper>
 

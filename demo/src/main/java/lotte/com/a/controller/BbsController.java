@@ -5,10 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lotte.com.a.dto.BbsDto;
@@ -21,195 +28,154 @@ public class BbsController {
 
 	@Autowired
 	BbsService service;
-	
-	
-	/**
-	 * 전체 글 조회하기
-	 * @return
-	 */
-	@RequestMapping(value = "/getBbsList", method = RequestMethod.GET)
-	public List<BbsDto> getBbsList(){
-		System.out.println("BbsController getBbsList " + new Date());
-		
-		List<BbsDto> list = service.getBbsList();
-		return list;
-	}
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	
 	/**
 	 * 글 작성하기
+	 * 
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping(value = "/writeBbs", method = RequestMethod.GET)
-	public String writeBbs(BbsDto dto) {
-		System.out.println("BbsController writeBbs " + new Date());
+	@PostMapping("/bbss")
+	public String writeBbs(@RequestBody BbsDto dto) {
+		logger.info("BbsController writeBbs " + new Date());
 		
 		boolean b = service.writeBbs(dto);
-		if(!b) {
+		if (!b) {
 			return "NO";
 		}
 		return "OK";
-	}	
-	
-	/**
-	 * 검색어
-	 * @param param
-	 * @return
-	 */
-	@RequestMapping(value = "/getBbsSearchList", method = RequestMethod.GET)
-	public List<BbsDto> getBbsSearchList(BbsParam param){
-		System.out.println("BbsController getBbsSearchList " + new Date());
-		
-		List<BbsDto> list = service.getBbsSearchList(param);
-		return list;
 	}
-	
-	/**
-	 * 검색어 + 페이징
-	 * @param param
-	 * @return
-	 */
-	@RequestMapping(value = "/getBbsSearchPageList", method = RequestMethod.GET)
-	public List<BbsDto> getBbsSearchPageList(BbsParam param){
-		System.out.println("BbsController getBbsSearchPageList " + new Date());
-		
-		// 페이지 설정
-		int sn = param.getPageNumber(); // 0 1 2 3
-		int start = sn * 10 + 1;	// 1  11
-		int end = (sn + 1) * 10;	// 10 20
-		
-		param.setStart(start);
-		param.setEnd(end);
-		
-		return service.getBbsSearchPageList(param);		
-	}
-	
+
+
 	/**
 	 * 글 개수 구하기
+	 * 
 	 * @param param
 	 * @return
 	 */
-	@RequestMapping(value = "/getBbsCount", method = RequestMethod.GET)
-	public int getBbsCount(BbsParam param) {
-		System.out.println("BbsController getBbsCount " + new Date());
-		
-		return service.getBbsCount(param);
+	@GetMapping("/bbss/count")
+	public int getBbsCount(
+			@RequestParam("search") String search,
+			@RequestParam("choice") String choice
+			) {
+		logger.info("BbsController getBbsCount " + new Date());
+
+		return service.getBbsCount(new BbsParam(search, choice, 0));
 	}
-	
+
 	/**
 	 * 글 상세
+	 * 
 	 * @param seq
 	 * @return
 	 */
-	@RequestMapping(value = "/getBbs", method = RequestMethod.GET)
-	public BbsDto getBbs(int seq) {
-		System.out.println("BbsController getBbs " + seq + " / " + new Date());		
+	@GetMapping("/bbss/{seq}")
+	public BbsDto getBbs(@PathVariable("seq") int seq) {
+		logger.info("BbsController getBbs ( " + seq + " ) : " + new Date());
+
 		return service.getBbs(seq);
 	}
-	
+
 	/**
 	 * 글 조회 리액트 프론트용
+	 * 
 	 * @param param
 	 * @return
 	 */
-	@RequestMapping(value = "/getBbsReactList", method = RequestMethod.POST)
-    public Map<String, Object> getBbsReactList(@RequestBody BbsParam param) {
-       System.out.println("BbsController getBbsReactList " + new Date());
+	@GetMapping("/bbss")
+	public Map<String, Object> getBbsReactList(
+			@RequestParam("search") String search,
+			@RequestParam("choice") String choice,
+			@RequestParam("pageNumber") int pageNumber	
+			) {
+		logger.info("BbsController getBbsReactList : " + new Date());
 
-       // 페이지 설정
-       int sn = param.getPageNumber(); // 0 1 2 3
-       int start = sn * 10 + 1;
-       int end = (sn + 1) * 10;
+		BbsParam param = new BbsParam(search, choice, pageNumber);
+		int sn = param.getPageNumber(); 
+		int start = sn * 10 + 1;
+		int end = (sn + 1) * 10;
 
-       param.setStart(start);
-       param.setEnd(end);
+		param.setStart(start);
+		param.setEnd(end);
 
-       List<BbsDto> list = service.getBbsSearchPageList(param);
-       int count = service.getBbsCount(param);
-       
-       Map<String, Object> map = new HashMap<String, Object>();
-       map.put("bbslist", list);
-       map.put("cnt", count);
-       
-       return map;
-    }
-	
+		List<BbsDto> list = service.getBbsSearchPageList(param);
+		int count = service.getBbsCount(param);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bbslist", list);
+		map.put("cnt", count);
+
+		return map;
+	}
+
 	/**
 	 * 댓글 작성하기
+	 * 
 	 * @param comment
 	 * @return
 	 */
-	@RequestMapping(value = "/writeComment", method = RequestMethod.POST)
+	@PostMapping("/comments")
 	public String writeComment(@RequestBody CommentsDto comment) {
-		System.out.println("BbsController writeComment " + new Date());
-		
+		logger.info("BbsController writeComment : " + new Date());
+
 		boolean b = service.writeComment(comment);
-		if(!b) {
+		if (!b) {
 			return "NO";
 		}
 		return "OK";
 	}
-	
+
 	/**
 	 * 댓글 전체 삭제하기
+	 * 
 	 * @param seq
 	 * @return
 	 */
-	@RequestMapping(value = "/delComment", method = RequestMethod.GET)
-	public String delComment(int seq) {
-		System.out.println("BbsController delComment " + new Date());
+	@DeleteMapping("/comments/{bbsSeq}")
+	public String delComment(@PathVariable("bbsSeq") int bbsSeq) {
+		logger.info("BbsController delComment : " + new Date());
 
-		boolean b = service.delComments(seq);
-		if(!b) {
+		boolean b = service.delComments(bbsSeq);
+		if (!b) {
 			return "NO";
 		}
 		return "OK";
 	}
-	
+
 	/**
 	 * 댓글 하나 삭제하기
+	 * 
 	 * @param seq
 	 * @return
 	 */
-	@RequestMapping(value = "/delOneComment", method = RequestMethod.GET)
-	public String delOneComment(int bbs_seq, int cmm_seq) {
-		System.out.println("BbsController delOneComment " + new Date());
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-	    map.put("bbs_seq", bbs_seq);
-	    map.put("cmm_seq", cmm_seq);
-	    
-		boolean b = service.delOneComment(map);
-		if(!b) {
+	@DeleteMapping("/comments/{cmmSeq}")
+	public String delOneComment(@PathVariable("cmmSeq") int cmmSeq) {
+		logger.info("BbsController delOneComment : " + new Date());
+
+		boolean b = service.delOneComment(cmmSeq);
+		if (!b) {
 			return "NO";
 		}
 		return "OK";
 	}
-	
-	
+
 	/**
 	 * 댓글 조회하기
+	 * 
 	 * @param seq
 	 * @return
 	 */
-	@RequestMapping(value = "/getComments", method = RequestMethod.GET)
-	public Map<String, Object> getComments(int seq){
-		System.out.println("BbsController getComments " + new Date());
-		
-		List<CommentsDto> list = service.getComments(seq);
-		for (CommentsDto commentsDto : list) {
-			System.out.println(commentsDto.getBbs_seq());
-		}
+	@GetMapping("/comments/{bbsSeq}")
+	public Map<String, Object> getComments(@PathVariable("bbsSeq") int bbsSeq) {
+		logger.info("BbsController getComments : " + new Date());
+
+		List<CommentsDto> list = service.getComments(bbsSeq);
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("comments", list);
 		return map;
 	}
-	
+
 }
-
-
-
-
-
-
-
-

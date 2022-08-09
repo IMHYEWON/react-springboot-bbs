@@ -1,6 +1,5 @@
 package lotte.com.a.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -25,7 +24,7 @@ public interface BbsDao {
 	BbsDto getBbs(int seq);
 	
 	int writeComment(CommentsDto comment);
-	List<CommentsDto> getComments(int bbs_seq);
-	int delComments(int bbs_seq);
-	int delOneComment(HashMap<String, Integer> map);
+	List<CommentsDto> getComments(int bbsSeq);
+	int delComments(int bbsSeq);
+	int delOneComment(int cmmSeq);
 }

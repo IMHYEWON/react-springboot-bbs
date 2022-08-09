@@ -14,8 +14,8 @@ public class MemberService {
 	@Autowired
 	MemberDao dao;
 	
-	public boolean getId(MemberDto dto) {
-		int n = dao.getId(dto);
+	public boolean getId(String id) {
+		int n = dao.getId(id);
 		return n>0?true:false;
 	}
 	

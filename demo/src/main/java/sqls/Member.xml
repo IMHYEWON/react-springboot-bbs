@@ -5,7 +5,7 @@
   
 <mapper namespace="lotte.com.a.dao.MemberDao">
 
-<select id="getId" parameterType="lotte.com.a.dto.MemberDto" resultType="java.lang.Integer">
+<select id="getId" parameterType="java.lang.String" resultType="java.lang.Integer">
 	select count(*)
 	from member
 	where id=#{id}
