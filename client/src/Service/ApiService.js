@@ -19,11 +19,21 @@ export function call(api, method, request) {
     .catch(function(error){
       console.log(error);
   });
-  } else {
+  } else if (method == 'GET') {
     console.log(options.params);
-    return axios.get(options.url, request, {
+    return axios.get(options.url, {params:request}, {
       headers: { "Content-Type": `application/json`}
     })
+    .then(res => { 
+      console.log(res.data);
+      return res.data;
+    })
+    .catch(function(error){
+      console.log(error);
+  });
+  } else if (method == 'DELETE') {
+    console.log(options.params);
+    return axios.delete(options.url)
     .then(res => { 
       console.log(res.data);
       return res.data;
@@ -38,7 +48,7 @@ export function call(api, method, request) {
 
 export function login(memberDto) {
   console.log("memberDto : "+ memberDto.id);
-  return call("/login", 'POST', memberDto).then((response) => {
+  return call("/member/login", 'GET', memberDto).then((response) => {
     console.log("Login response : "+response);
     if (response.id == memberDto.id) {
       // token이 존재하는 경우 Todo 화면으로 리디렉트
@@ -48,8 +58,9 @@ export function login(memberDto) {
   });
 }
 
-export function checkid(memberDto) {
-  return call("/getId", 'POST', memberDto).then((response) => {
+export function checkid(id) {
+  console.log(id);
+  return call(`/member/${id}`, 'GET').then((response) => {
     if (response == "OK") {
       alert("사용가능한 id입니다");
       return true;
@@ -61,7 +72,7 @@ export function checkid(memberDto) {
 }
 
 export function signUp(memberDto) {
-  return call("/account", 'POST', memberDto).then((response) => {
+  return call("/member", 'POST', memberDto).then((response) => {
     if (response == "OK") {
       alert("회원가입 성공");
       window.location.href = "/login";

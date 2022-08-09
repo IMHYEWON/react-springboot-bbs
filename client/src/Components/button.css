@@ -1,0 +1,16 @@
+.btn-black {
+    display: inline-block;
+    min-width: 120px;
+    height: 40px;
+    padding: 0 23px;
+    border-radius: 20px;
+    font-size: 13px;
+    line-height: 38px;
+    box-sizing: border-box;
+    text-align: center;
+    border-color: #000;
+    color: #fff;
+    background-color: #000;
+}
+
+

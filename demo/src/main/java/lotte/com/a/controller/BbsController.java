@@ -96,7 +96,6 @@ public class BbsController {
 		int sn = param.getPageNumber(); 
 		int start = sn * 10 + 1;
 		int end = (sn + 1) * 10;
-
 		param.setStart(start);
 		param.setEnd(end);
 
@@ -152,7 +151,7 @@ public class BbsController {
 	 */
 	@DeleteMapping("/comments/{cmmSeq}")
 	public String delOneComment(@PathVariable("cmmSeq") int cmmSeq) {
-		logger.info("BbsController delOneComment : " + new Date());
+		logger.info("BbsController delOneComment : " +cmmSeq +"/"+ new Date());
 
 		boolean b = service.delOneComment(cmmSeq);
 		if (!b) {

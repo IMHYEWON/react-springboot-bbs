@@ -1,0 +1,62 @@
+.row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 100%;
+    max-width: 100%;
+    margin-bottom: 50px;
+}
+
+.row .col {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 50%;
+    max-width: 50%;
+    min-width: 50%;
+}
+
+.row .col .maintitle {
+    border: 10px solid transparent;
+    min-height: 100px;
+    padding: 30px;
+    font-weight: 400;
+    font-size: 3.75rem;
+    margin: 0 auto 0 0;
+}
+
+.row .col .content {
+    font-family: 'Courier New', Courier, monospace;
+    min-height: fit-content;
+    max-width: 100%;
+    padding : 20px;
+}
+
+.row .col .firstimage {
+    border: 10px solid transparent;
+    min-height: 452px;
+    background-image: url('/images/2.jpg');
+    background-position: 50% 50%;
+    background-size: cover;
+}
+
+.row .col .secondimage {
+    border: 10px solid transparent;
+    min-height: 452px;
+    background-image: url('/images/2.jpg');
+    background-position: 50% 50%;
+    background-size: cover;
+}
+
+.bbslist {
+    display: inline-block;
+    min-width: 120px;
+    height: 40px;
+    padding: 0 23px;
+    border-radius: 20px;
+    font-size: 13px;
+    line-height: 38px;
+    box-sizing: border-box;
+    text-align: center;
+    border-color: #000;
+    color: #fff;
+    background-color: #000;
+}

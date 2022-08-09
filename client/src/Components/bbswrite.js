@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { call } from '../Service/ApiService';
 function Bbswrite() {
 
     let history = useNavigate();
@@ -21,8 +21,8 @@ function Bbswrite() {
             return;
         }
 
-        axios.get('http://localhost:3000/writeBbs', 
-                       { params:{ id:id, title:title, content:content } })
+        const variables = { id:id, title:title, content:content }
+        call('/bbss', 'POST', variables)
         .then(res =>{
                 console.log(res.data);
                 alert("등록되었습니다.");

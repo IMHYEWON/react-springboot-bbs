@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 import Pagination from "react-js-pagination";
 
 import "./bbslist.css";
 import "./page.css";
+import Bbs from './bbs';
 import { call } from '../Service/ApiService';
 
 function Bbslist(){
@@ -25,7 +27,13 @@ function Bbslist(){
     // Apiservice.js로 따로 뺌
     const fetchData = async (c, s, p) => {
         
-        call("/getBbsReactList", 'POST', { "choice":c, "search":s, "pageNumber":(p - 1) })
+        const variables = {
+            choice : c,
+            search : s,
+            pageNumber : p-1
+        }
+
+        call("/bbss", 'GET', variables)
             .then(data => {
                 setBbslist(data.bbslist);
                 setTotalCnt(data.cnt);
@@ -72,7 +80,8 @@ function Bbslist(){
                         value={searchValue} onChange={searchChange} />
                 </td>
                 <td>
-                    <button type="button" className="btn btn-primary" onClick={searchBtn}>검색</button>
+
+                    <button type="button" className="searchBtn" onClick={searchBtn}></button>
                 </td>                
             </tr>    
             </tbody>
@@ -80,25 +89,8 @@ function Bbslist(){
             </div>
             <br />
 
-            <table className="table table-hover">
-            <thead>
-            <tr>
-                <th>No.</th>
-                <th>Contents</th>
-                <th>Writer</th>
-            </tr>
-            </thead>
+            <Bbs bbslist={bbslist} />
 
-            <tbody>
-            {
-                bbslist.map( function(object, i){ 
-                    return (
-                        <TableRow obj={object} key={i} cnt={i + 1} />
-                    )
-                })
-            }
-            </tbody>
-            </table>
 
             <Pagination
                 activePage={page}
@@ -110,65 +102,15 @@ function Bbslist(){
                 onChange={handlePageChange} />
 
             <div className="my-5 d-flex justify-content-center">
-                <Link className="btn btn-primary" to="/bbswrite">글쓰기</Link>                
+                <Link className="writeBtn" to="/bbswrite">글쓰기</Link>                
             </div>
 
         </div>
     )
 }
 
-function TableRow(props){
-    return(
-        <tr>
-            <td>{props.cnt}</td>
-            { delProc(props) }
-            <td>{props.obj.id}</td>
-        </tr>
-    )
-}
 
-// 삭제된 글의 처리
-function delProc(props){
-    if(props.obj.del === 0){
-        return(
-            <td className="underline">                
-                {getArrow(props.obj.depth)}
-                <Link to={`/bbsdetail/${props.obj.seq}`}>
-                   {titleDot3(props.obj.title)}
-                </Link>   
-            </td>
-        )
-    }else{
-        return(
-            <td className="del">- 이 글은 작성자에 의해서 삭제되었습니다 -</td>
-        )
-    }
-}
 
-function getArrow( depth ) {
-	let rs = "<img src='arrow.png' width='20px' height='20px'/>";
-	let nbsp = "&nbsp;&nbsp;&nbsp;&nbsp";    
-	
-	let ts = "";
-	for(let i = 0;i < depth; i++){
-		ts += nbsp;
-	}
-    // String -> Html
-    let s = <span dangerouslySetInnerHTML={ {__html: ts + rs + "&nbsp;&nbsp;"} }></span>
-
-	return depth===0?"":s;    
-}
-
-function titleDot3( str ) {	
-	let s = "";
-	if(str.length > 50){
-		s = str.substring(0, 50);
-		s += "...";
-	}else{
-		s = str;	
-	}	
-	return s;
-}
 
 export default Bbslist;
 

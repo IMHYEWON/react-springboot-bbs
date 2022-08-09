@@ -5,6 +5,7 @@ import Bbslist from "./Components/bbslist";
 import Bbswrite from "./Components/bbswrite";
 import Login from "./Components/login";
 import Signup from "./Components/Signup";
+import Main from "./Components/home";
 import Footer from "./Components/footer";
 import { Typography } from '@material-ui/core';
 
@@ -69,7 +70,7 @@ function App() {
 
               <Routes>
 
-                <Route path="/" element={<Home />}></Route>
+                <Route path="/" element={<Main />}></Route>
 
                 <Route path="/bbslist" element={<Bbslist />}></Route>
                 <Route path="/bbswrite" element={<Bbswrite />}></Route>

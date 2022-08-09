@@ -14,14 +14,14 @@ function Comments(props) {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-
+        console.log(props.bbsSeq);
         const variables = {
-            bbs_seq : props.bbs_seq, // 임시
+            bbsSeq : props.bbsSeq, // 임시
             comment : Comment,
             id : 'hyewon' // 임시
         }
 
-        call("/writeComment", 'POST', variables)
+        call("/comments", 'POST', variables)
         .then(data => {
             if(data == 'OK') {
                 alert('댓글 작성 성공');
@@ -37,12 +37,12 @@ function Comments(props) {
         e.preventDefault();
 
         const variables = {
-            bbs_seq : props.bbs_seq,
-            cmm_seq : e.currentTarget.value
+            bbsseq : props.bbsseq,
+            cmmseq : e.currentTarget.value
         }
 
-        console.log(variables.bbs_seq + '/' + variables.cmm_seq);
-        call("/delOneComment?bbs_seq="+variables.bbs_seq+"&cmm_seq="+variables.cmm_seq, 'get')
+        console.log(e.currentTarget.value);
+        call(`/comments/${variables.cmmseq}`, 'DELETE')
         .then(data => {
             if(data == 'OK') {
                 alert('댓글 삭제');
@@ -64,9 +64,9 @@ function Comments(props) {
                 
                 <div style={{paddingLeft:'10px'}}>
                     <p style={{fontSize:'16px', paddingBottom:'0px',marginBottom:'0px', fontFamily:'Roboto Slab', float:'left'}}>{comment.id}</p>
-                    <div style={{font: '11px', padding:'0 10px 0 0', margin:'0px', float:'right', textAlign:'right',  color:'#9e9e9e'}}>
+                    <div style={{font: '11px', height:'24px', padding:'0 10px 0 0', margin:'0px', float:'right', textAlign:'right',  color:'#9e9e9e'}}>
                         <p style={{float:'left'}}>{comment.wdate.substring(0,16)}</p>
-                        <Button style={{padding:'0px', color:'rgb(209 99 99)', fontFamily:'sans-serif'}} value={comment.cmm_seq} onClick={onDeleteHandler}>x</Button>
+                        <Button style={{padding:'0px', color:'rgb(209 99 99)', fontFamily:'sans-serif'}} value={comment.cmmSeq} onClick={onDeleteHandler}>x</Button>
                     </div>
 
                     <p style={{fontFamily:'Nanum Gothic', fontSize:'14px', clear:'both'}}>{comment.comment}</p>

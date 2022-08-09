@@ -1,0 +1,71 @@
+
+.info_post {
+    display: flex;
+    width: 100%;
+    position: relative;
+    padding-right: 30px;
+    padding-bottom: 20px;
+    margin-top: 15px;
+    border-bottom: solid 0.1px #80808042;
+    flex-direction: column
+}
+
+.info_post .writer {
+    display: inline-block;
+}
+.info_post .writer .profile {
+    float: left;
+    opacity: 0.9;
+}
+.info_post .writer .profile .img{
+    background-color: transparent;
+    vertical-align: middle;
+    border-style: none;
+    border-radius: 50%;
+    width: 40px;
+}
+
+
+.info_post .writer .writer-info {
+    float: left;
+    margin-left:10px;
+}
+.info_post .writer .name_author {
+    display: block;
+    height: 16px;
+    margin-bottom: 3px;
+    font-size: 14px;
+    line-height: 16px;
+}
+.info_post .writer .wtime {
+    font-size: 11px;
+    color: #959595;
+    line-height: 13px;
+}
+
+.info_post .post {
+    margin-top: 16px;
+}
+.info_post .post .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    min-height: 20px;
+    max-height: 50px;
+    font-size: 17px;
+    line-height: 25px;
+    word-wrap: break-word;
+    font-weight: 600;
+    color : #8f7073;
+}
+.info_post .post .content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    max-height: 60px;
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 20px;
+    color: #666;
+    word-wrap: break-word;    
+}

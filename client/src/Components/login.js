@@ -4,14 +4,21 @@ import { createTheme, ThemeProvider } from '@material-ui/core';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../Service/ApiService';
-
+import { BlackButton } from './button';
 function Login() {
+
+  const theme = createTheme({
+    typography : {
+      fontFamily : ['Roboto Slab', 'Nanum Gothic'].join(','),
+    },
+  });
 
   function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
     const id = data.get("id");
     const password = data.get("password");
+    console.log(id);
     // ApiService의 signin 메서드를 사용 해 로그인.
     login({ id: id, pwd: password });
   }
@@ -19,12 +26,11 @@ function Login() {
 
   return (
     <div>
-    <Container component="main" maxWidth="xs" style={{ marginTop: "8%" }}>
+    <Container component="main" maxWidth="xs" style={{ marginTop: "8%", marginBottom:'400px' }}>
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Typography component="h1" variant="h5">
-          로그인
-        </Typography>
+        <h3 style={{marginBottom:'30px'}}>로그인</h3>
+       
       </Grid>
     </Grid>
     <form noValidate onSubmit={handleSubmit}>
@@ -55,14 +61,11 @@ function Login() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-          >
-            로그인
-          </Button>
+          {/* <div className="my-5 d-flex justify-content-center">
+              <Button className="login" type="submit">로그인</Button>                
+          </div> */}
+          <BlackButton type={'submit'} msg={'로그인'}/>
+
         </Grid>
       </Grid>
     </form>

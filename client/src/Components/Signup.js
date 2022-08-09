@@ -6,7 +6,8 @@ import { createTheme, ThemeProvider } from '@material-ui/core';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { signUp, checkid } from '../Service/ApiService';
-
+import { BlackButton } from './button';
+import "./button.css";
 function SignUp() {
 
 
@@ -74,15 +75,8 @@ function SignUp() {
           />
         </Grid>
         <Grid item xs={12} sm={4}>
-        <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={onConfirmIdHandler}
-          >
-            아이디 체크
-          </Button>
+        <button className="btn-black" type="button" onClick={onConfirmIdHandler}>아이디 체크</button>
+
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -119,14 +113,7 @@ function SignUp() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-          >
-            회원가입
-          </Button>
+          <BlackButton type={'submit'} msg={'회원가입'}/>
         </Grid>
       </Grid>
     </form>

@@ -8,3 +8,31 @@
     color: #ff0000;
     text-align: center;
 }
+
+.searchBtn {
+    background-image: url('./images/search-icon.png');
+    background-size: 22px;
+    background-repeat: no-repeat;
+    background-position-y: 7px;
+    background-color: transparent;
+    margin-left: 10px;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border: none;
+}
+
+.writeBtn {
+    display: inline-block;
+    min-width: 120px;
+    height: 40px;
+    padding: 0 23px;
+    border-radius: 20px;
+    font-size: 13px;
+    line-height: 38px;
+    box-sizing: border-box;
+    text-align: center;
+    border-color: #000;
+    color: #fff;
+    background-color: #000;
+}

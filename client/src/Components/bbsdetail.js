@@ -4,6 +4,7 @@ import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import { call } from '../Service/ApiService';
 import Comments from './comment';
 import "./bbsdetail.css";
+import { API_BASE_URL } from "../app-config";
 
 export default function Bbsdetail(){
     //const s = location.state.seq;
@@ -16,15 +17,22 @@ export default function Bbsdetail(){
     useEffect( () => {
         const fetchData = async (s) => {
             // get bbs 글 
-            call("/getBbs?seq=" + s, "GET")
+            // const url = API_BASE_URL + 'bbss'
+            // axios.get(`http://localhost:3000/bbss?seq=${s}`)
+            // .then(res=>{
+            //     console.log(res.data);
+            //     setBbs(res.data);
+            // })
+            call(`/bbss/${s}`, "GET")
                 .then(data=>{
+                    console.log(data);
                     setBbs(data);
                 })
 
             // get Comments 댓글
-            call("/getComments?seq=" + s, "GET")
+            call(`/comments/${s}`, "GET")
                 .then(data=>{
-                    console.log(data.comments);
+                    console.log(data);
                     setCommentLists(data.comments);
                 })
 
@@ -62,7 +70,7 @@ export default function Bbsdetail(){
 
             <br/><br/>
             <div style={{padding : '0 0 0.75em 0.2em'}}>
-            <Comments CommentLists={CommentLists} bbs_seq={seq} refreshFunction={updateComment} />
+            <Comments CommentLists={CommentLists} bbsSeq={seq} refreshFunction={updateComment} />
             </div>
             </div>
         </div>
