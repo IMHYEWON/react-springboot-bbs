@@ -43,24 +43,7 @@ public class BbsService {
 		return dao.getBbs(seq);		
 	}
 	
-	public boolean writeComment(CommentsDto comment) {
-		int n = dao.writeComment(comment);
-		return n>0;
-	}
-	
-	public List<CommentsDto> getComments(int bbsSeq){
-		return dao.getComments(bbsSeq);
-	}
-	
-	public boolean delComments(int bbsSeq){
-		int n = dao.delComments(bbsSeq);
-		return n>0;
-	}
-	
-	public boolean delOneComment(int cmmSeq){
-		int n = dao.delOneComment(cmmSeq);
-		return n>0;
-	}
+
 	
 }
 

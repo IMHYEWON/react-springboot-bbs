@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import lotte.com.a.dto.BbsDto;
 import lotte.com.a.dto.BbsParam;
-import lotte.com.a.dto.CommentsDto;
 
 @Mapper
 @Repository
@@ -22,9 +21,5 @@ public interface BbsDao {
 	int getBbsCount(BbsParam param);
 	
 	BbsDto getBbs(int seq);
-	
-	int writeComment(CommentsDto comment);
-	List<CommentsDto> getComments(int bbsSeq);
-	int delComments(int bbsSeq);
-	int delOneComment(int cmmSeq);
+
 }
