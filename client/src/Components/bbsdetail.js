@@ -30,7 +30,7 @@ export default function Bbsdetail(){
                 })
 
             // get Comments 댓글
-            call(`/comments/${s}`, "GET")
+            call(`/comments?bbsSeq=${s}`, "GET")
                 .then(data=>{
                     console.log(data);
                     setCommentLists(data.comments);

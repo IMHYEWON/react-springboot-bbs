@@ -132,8 +132,8 @@ public class BbsController {
 	 * @param seq
 	 * @return
 	 */
-	@DeleteMapping("/comments/{bbsSeq}")
-	public String delComment(@PathVariable("bbsSeq") int bbsSeq) {
+	@DeleteMapping("/comments")
+	public String delComment(@RequestParam("bbsSeq") int bbsSeq) {
 		logger.info("BbsController delComment : " + new Date());
 
 		boolean b = service.delComments(bbsSeq);
@@ -166,8 +166,8 @@ public class BbsController {
 	 * @param seq
 	 * @return
 	 */
-	@GetMapping("/comments/{bbsSeq}")
-	public Map<String, Object> getComments(@PathVariable("bbsSeq") int bbsSeq) {
+	@GetMapping("/comments")
+	public Map<String, Object> getComments(@RequestParam("bbsSeq") int bbsSeq) {
 		logger.info("BbsController getComments : " + new Date());
 
 		List<CommentsDto> list = service.getComments(bbsSeq);
