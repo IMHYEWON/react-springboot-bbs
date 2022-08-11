@@ -36,7 +36,7 @@ public class CommentController {
 	 * @param comment
 	 * @return
 	 */
-	@PostMapping("/comments")
+	@PostMapping()
 	public String writeComment(@RequestBody CommentsDto comment) {
 		logger.info("BbsController writeComment : " + new Date());
 
@@ -53,7 +53,7 @@ public class CommentController {
 	 * @param seq
 	 * @return
 	 */
-	@DeleteMapping("/comments")
+	@DeleteMapping()
 	public String delComment(@RequestParam("bbsSeq") int bbsSeq) {
 		logger.info("BbsController delComment : " + new Date());
 
@@ -70,7 +70,7 @@ public class CommentController {
 	 * @param seq
 	 * @return
 	 */
-	@DeleteMapping("/comments/{cmmSeq}")
+	@DeleteMapping("/{cmmSeq}")
 	public String delOneComment(@PathVariable("cmmSeq") int cmmSeq) {
 		logger.info("BbsController delOneComment : " +cmmSeq +"/"+ new Date());
 
@@ -87,7 +87,7 @@ public class CommentController {
 	 * @param seq
 	 * @return
 	 */
-	@GetMapping("/comments")
+	@GetMapping()
 	public Map<String, Object> getComments(@RequestParam("bbsSeq") int bbsSeq) {
 		logger.info("BbsController getComments : " + new Date());
 
