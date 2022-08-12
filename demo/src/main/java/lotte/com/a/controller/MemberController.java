@@ -60,6 +60,7 @@ public class MemberController {
 		MemberDto mem = service.login(new MemberDto(id, pwd));
 		
 		if (mem != null) {
+			// 사용자 정보 바탕으로 로그인 수정 
 			final String token = tokenProvider.create(mem);
 			mem.setToken(token);
 			return mem;
