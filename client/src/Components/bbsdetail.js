@@ -16,13 +16,7 @@ export default function Bbsdetail(){
 
     useEffect( () => {
         const fetchData = async (s) => {
-            // get bbs 글 
-            // const url = API_BASE_URL + 'bbss'
-            // axios.get(`http://localhost:3000/bbss?seq=${s}`)
-            // .then(res=>{
-            //     console.log(res.data);
-            //     setBbs(res.data);
-            // })
+
             call(`/bbss/${s}`, "GET")
                 .then(data=>{
                     console.log(data);

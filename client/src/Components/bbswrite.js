@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { call } from '../Service/ApiService';
+import { BlackButton } from './button';
+import "./button.css";
+
 function Bbswrite() {
 
     let history = useNavigate();
@@ -15,7 +18,7 @@ function Bbswrite() {
     const contentChange = (e) => setContent(e.target.value);
 
     const writeBbs = () =>{
-    //    alert('writeBbs');
+        alert('writeBbs');
         if(title === undefined || title.trim() === ''){
             alert('제목을 작성해 주십시오');
             return;
@@ -34,39 +37,33 @@ function Bbswrite() {
 
     return (
         <div>
-            {/* <h2>Bbswrite</h2> */}
+            <div id="app" className="container">
             <table className="table">
-            <col width="200"/><col width="400"/>
-				<tr>
-		    	    <th>아이디</th>
-			        <td>
-				        <input type="text" className="form-control" size="50px" value={id} 
-                                  onChange={idChange}/>
-                    </td>
-		        </tr>
+            <tbody>
                 <tr>
-                    <th>제목</th>
-                    <td>
-                        <input type="text" className="form-control" size="50px" value={title} 
-                                   onChange={titleChange}/>
-                    </td>
-                </tr>                
-                <tr>
-                    <th>내용</th>
-                    <td>
-                        <textarea className="form-control" rows="15" value={content} 
-                                    onChange={contentChange}></textarea>
+                    <td className="title">
+                        <input type="text" className="form-control" size="50px" style={{border : '0px', fontSize : '24px'}}
+                        placeholder='제목을 입력하세요.' value={title} onChange={titleChange}/>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <button onClick={()=>writeBbs()} className="btn btn-primary">
-                          작성완료
-                        </button>
-                    </td>	
+
+                <tr>	
+                    <td>
+                        <textarea className="form-control" rows="15" style={{border : '0px'}}
+                        placeholder='내용을 입력하세요.' value={content} onChange={contentChange}/>
+                    </td>
                 </tr>
+
+            </tbody>
             </table>
+            <div className="my-5 d-flex justify-content-center">
+                <button className="btn-black" type="button" onClick={()=>writeBbs()}>글 작성</button>                
+            </div>
+            <br/><br/>
+           
+            </div>
         </div>
+
     );
 }
 
