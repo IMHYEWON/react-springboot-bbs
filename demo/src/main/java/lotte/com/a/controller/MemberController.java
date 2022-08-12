@@ -15,16 +15,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lotte.com.a.dto.MemberDto;
+import lotte.com.a.security.TokenProvider;
 import lotte.com.a.service.MemberService;
 
+@RequestMapping("/member")
 @RestController
 public class MemberController {
 
-	@Autowired
-	MemberService service;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@GetMapping("/member/{id}")
+	@Autowired
+	private MemberService service;
+	
+	@Autowired
+	private TokenProvider tokenProvider;
+
+	@GetMapping("/{id}")
 	public String getId(@PathVariable("id") String id) {
 		logger.info("MemberController getId : " + new Date());
 		boolean b = service.getId(id);
@@ -35,7 +41,7 @@ public class MemberController {
 		}
 	}
 	
-	@PostMapping("/member")
+	@PostMapping()
 	public String createAccount(@RequestBody MemberDto dto) {
 		logger.info("MemberController createAccount : " + new Date());
 		boolean b = service.account(dto);
@@ -45,7 +51,7 @@ public class MemberController {
 		return "OK";		
 	}
 	
-	@GetMapping("/member/login")
+	@GetMapping("/login")
 	public MemberDto login(
 			@RequestParam("id") String id,
 			@RequestParam("pwd") String pwd
@@ -53,7 +59,14 @@ public class MemberController {
 		logger.info("MemberController login : " + new Date());
 		MemberDto mem = service.login(new MemberDto(id, pwd));
 		
-		return mem;
+		if (mem != null) {
+			final String token = tokenProvider.create(mem);
+			mem.setToken(token);
+			return mem;
+		} else {
+			// 수정 예정
+			return null;
+		}
 	}
 }
 

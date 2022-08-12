@@ -10,5 +10,8 @@ public class MemberDto {
 	private String name;
 	private String email;
 	private int auth;
+	private String token; 
+	
+	
 
 }
