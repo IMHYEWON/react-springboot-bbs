@@ -1,17 +1,28 @@
 import axios from "axios";
 import { API_BASE_URL } from "../app-config";
 
+const ACCESS_TOKEN = "ACCESS_TOKEN";
+
 export function call(api, method, request) {
 
+  let headers = new Headers({
+    "Content-type" : "application/json",
+  });
+
+  const accessToken = localStorage.getItem("ACCESS_TOKEN");
+  if (accessToken && accessToken !== null) {
+    headers.append("Authorization", "Bearer " + accessToken);
+  }
+
   let options = {
+    headers : headers, 
     url: API_BASE_URL + api,
     params: JSON.stringify(request)
   };
 
   if (method == 'POST') {
-    return axios.post(options.url, options.params, {
-      headers: { "Content-Type": `application/json`}
-    })
+
+    return axios.post(options.url, options.params, options.headers)
     .then(res => { 
       console.log(res.data);
       return res.data;
@@ -21,9 +32,7 @@ export function call(api, method, request) {
   });
   } else if (method == 'GET') {
     console.log(options.params);
-    return axios.get(options.url, {params:request}, {
-      headers: { "Content-Type": `application/json`}
-    })
+    return axios.get(options.url, {params:request}, options.headers)
     .then(res => { 
       console.log(res.data);
       return res.data;
@@ -47,10 +56,12 @@ export function call(api, method, request) {
 }
 
 export function login(memberDto) {
-  console.log("memberDto : "+ memberDto.id);
   return call("/member/login", 'GET', memberDto).then((response) => {
     console.log("Login response : "+response);
-    if (response.id == memberDto.id) {
+    if (response.token) {
+      
+      // local storage에 토큰 저장
+      localStorage.setItem("ACCESS_TOKEN", response.token);
       // token이 존재하는 경우 Todo 화면으로 리디렉트
       alert("어서오세요");
       window.location.href = "/";
