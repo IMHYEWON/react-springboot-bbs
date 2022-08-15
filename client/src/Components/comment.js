@@ -57,14 +57,26 @@ function Comments(props) {
             
 
             {/* Comment Lists */}    
-            {/* {console.log(props.CommentLists)} */}
+            {console.log(props.CommentLists)}
             {props.CommentLists && props.CommentLists.map((comment, index) => (
                 
                 <div style={{paddingLeft:'10px'}}>
                     <p style={{fontSize:'16px', paddingBottom:'0px',marginBottom:'0px', fontFamily:'Roboto Slab', float:'left'}}>{comment.id}</p>
                     <div style={{font: '11px', height:'24px', padding:'0 10px 0 0', margin:'0px', float:'right', textAlign:'right',  color:'#9e9e9e'}}>
-                        <p style={{float:'left'}}>{comment.wdate.substring(0,16)}</p>
-                        <Button style={{padding:'0px', color:'rgb(209 99 99)', fontFamily:'sans-serif'}} value={comment.cmmSeq} onClick={onDeleteHandler}>x</Button>
+
+                        {/* 본인만 삭제 가능 */}
+                        { (comment.id == localStorage.getItem("ID")) &&
+                            <div>
+                            <p style={{float:'left'}}>{comment.wdate.substring(0,16)}</p>
+                            <Button style={{padding:'0px', width:'40px', color:'rgb(209 99 99)', fontFamily:'sans-serif'}} value={comment.cmmSeq} onClick={onDeleteHandler}>x</Button>
+                            </div>
+                        }
+
+                        { (comment.id != localStorage.getItem("ID")) &&
+                            <div>
+                            <p style={{float:'left', marginRight:'60px'}}>{comment.wdate.substring(0,16)}</p>
+                            </div>
+                        }
                     </div>
 
                     <p style={{fontFamily:'Nanum Gothic', fontSize:'14px', clear:'both'}}>{comment.comment}</p>
