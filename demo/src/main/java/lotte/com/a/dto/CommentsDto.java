@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class CommentsDto {
 	
-	private int bbsSeq;
+	private final int bbsSeq;
 	private int cmmSeq;
-	private String id;
-	private String comment;
+	private final String id;
+	private final String comment;
 	private String wdate;
 	private String udate;
 	
