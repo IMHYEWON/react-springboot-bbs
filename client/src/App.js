@@ -15,6 +15,16 @@ import { Typography } from '@material-ui/core';
 // import './main.css';
 
 function App() {
+
+  const onClickHandler = (e) => {
+    e.preventDefault();
+
+    if (localStorage.length < 1) {
+      alert("로그인이 필요합니다");
+      window.location.href = "/login";
+    }
+  }
+
   return (
     <div>
       <header className="py-4">
@@ -43,8 +53,8 @@ function App() {
                     aria-expanded="false">게시판</div>
 
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link className="dropdown-item" to="/bbslist">글목록</Link>
-                    <Link className="dropdown-item" to="/bbswrite">글추가</Link>
+                    <Link className="dropdown-item" to="/bbslist" onClick={onClickHandler}>글목록</Link>
+                    <Link className="dropdown-item" to="/bbswrite" onClick={onClickHandler}>글추가</Link>
                   </div>
                 </li>
                 <li className="nav-item dropdown">
