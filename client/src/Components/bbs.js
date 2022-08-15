@@ -11,7 +11,8 @@ function Bbs(props) {
         
         <div>
             {console.log(props.bbslist)} 
-            {props.bbslist && props.bbslist.map((comment, index) => (
+            {props.bbslist && props.bbslist.map((post, index) => (
+            
             <div className="info_post">
                  {/* 작성자 정보 */}
                 <div className="writer">
@@ -20,15 +21,15 @@ function Bbs(props) {
                     <img className="img" src={'/images/profile.jpg'} alt={""}/>
                     </div>
                     <div className="writer-info">
-                        <span className="name_author">{comment.id}</span>
-                        <span className="wdate">{comment.wdate.substring(0,10)}</span>
+                        <span className="name_author">{post.id}</span>
+                        <span className="wdate">{post.wdate.substring(0,10)}</span>
                     </div>
                 </div>
                 
                 <div className="post">
-                    <Link to={`/bbsdetail/${comment.seq}`}>
-                        <a className="title">{comment.title}</a>
-                        <a className="content">{substrContent(comment.content)}</a>
+                    <Link to={`/bbsdetail/${post.seq}`}>
+                        <a className="title">{post.title}</a>
+                        <a className="content">{substrContent(post.content)}</a>
                     </Link>   
                 </div>
             </div>

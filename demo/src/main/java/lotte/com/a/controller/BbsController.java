@@ -82,12 +82,12 @@ public class BbsController {
 	 */
 	@GetMapping("/bbss")
 	public Map<String, Object> getBbsReactList(
-			@RequestParam("search") String search,
-			@RequestParam("choice") String choice,
+			@RequestParam(value = "search", required = false) String search,
+			@RequestParam(value = "choice", required = false) String choice,
 			@RequestParam("pageNumber") int pageNumber	
 			) {
 		logger.info("BbsController getBbsReactList : " + new Date());
-
+		System.out.println(search + "/" + choice + "/" + pageNumber);
 		BbsParam param = new BbsParam(search, choice, pageNumber);
 		int sn = param.getPageNumber(); 
 		int start = sn * 10 + 1;

@@ -5,46 +5,44 @@ const ACCESS_TOKEN = "ACCESS_TOKEN";
 
 export function call(api, method, request) {
 
-  let headers = new Headers({
-    "Content-type" : "application/json",
-  });
-
   const accessToken = localStorage.getItem("ACCESS_TOKEN");
+  
+  let bearerToken  = "Bearer ";
   if (accessToken && accessToken !== null) {
-    headers.append("Authorization", "Bearer " + accessToken);
+    bearerToken += accessToken;
   }
 
   let options = {
-    headers : headers, 
+    headers : {
+      "Content-Type" : "application/json",
+      Authorization : bearerToken,
+    },
     url: API_BASE_URL + api,
     params: JSON.stringify(request)
   };
 
   if (method == 'POST') {
-
-    return axios.post(options.url, options.params, options.headers)
+    return axios.post(options.url, options.params, {headers : options.headers})
     .then(res => { 
-      console.log(res.data);
       return res.data;
     })
     .catch(function(error){
       console.log(error);
   });
   } else if (method == 'GET') {
-    console.log(options.params);
-    return axios.get(options.url, {params:request}, options.headers)
-    .then(res => { 
-      console.log(res.data);
+    return axios.get(options.url,
+      {
+        params : request,
+        headers : options.headers
+      }
+    ).then(res => { 
       return res.data;
-    })
-    .catch(function(error){
+    }).catch(function(error){
       console.log(error);
   });
   } else if (method == 'DELETE') {
-    console.log(options.params);
     return axios.delete(options.url)
     .then(res => { 
-      console.log(res.data);
       return res.data;
     })
     .catch(function(error){
@@ -57,11 +55,11 @@ export function call(api, method, request) {
 
 export function login(memberDto) {
   return call("/member/login", 'GET', memberDto).then((response) => {
-    console.log("Login response : "+response);
     if (response.token) {
       
       // local storage에 토큰 저장
       localStorage.setItem("ACCESS_TOKEN", response.token);
+      localStorage.setItem("ID", response.id);
       // token이 존재하는 경우 Todo 화면으로 리디렉트
       alert("어서오세요");
       window.location.href = "/";
@@ -70,7 +68,6 @@ export function login(memberDto) {
 }
 
 export function checkid(id) {
-  console.log(id);
   return call(`/member/${id}`, 'GET').then((response) => {
     if (response == "OK") {
       alert("사용가능한 id입니다");

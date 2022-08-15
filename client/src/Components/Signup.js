@@ -21,7 +21,7 @@ function SignUp() {
   
 
   const onConfirmIdHandler = () => {
-    checkid({id : Id })
+    checkid(Id)
     .then(res => { 
       res == true ? setConfirmId(true): setConfirmId(false);
     })

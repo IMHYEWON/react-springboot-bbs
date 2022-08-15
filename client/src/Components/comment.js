@@ -14,11 +14,10 @@ function Comments(props) {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        console.log(props.bbsSeq);
         const variables = {
-            bbsSeq : props.bbsSeq, // 임시
+            bbsSeq : props.bbsSeq,
             comment : Comment,
-            id : 'hyewon' // 임시
+            id : localStorage.getItem("ID")
         }
 
         call("/comments", 'POST', variables)
@@ -41,7 +40,6 @@ function Comments(props) {
             cmmseq : e.currentTarget.value
         }
 
-        console.log(e.currentTarget.value);
         call(`/comments/${variables.cmmseq}`, 'DELETE')
         .then(data => {
             if(data == 'OK') {

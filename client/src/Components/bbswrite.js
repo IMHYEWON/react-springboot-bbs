@@ -9,7 +9,7 @@ function Bbswrite() {
 
     let history = useNavigate();
 
-    const [id, setId] = useState('');
+    const [id, setId] = useState(localStorage.getItem("ID"));
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
@@ -18,7 +18,9 @@ function Bbswrite() {
     const contentChange = (e) => setContent(e.target.value);
 
     const writeBbs = () =>{
-        alert('writeBbs');
+
+        
+
         if(title === undefined || title.trim() === ''){
             alert('제목을 작성해 주십시오');
             return;
