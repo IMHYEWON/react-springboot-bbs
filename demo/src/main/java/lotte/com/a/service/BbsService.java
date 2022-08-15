@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lotte.com.a.dao.BbsDao;
 import lotte.com.a.dto.BbsDto;
+import lotte.com.a.dto.BbsListResponseDto;
 import lotte.com.a.dto.BbsParam;
-import lotte.com.a.dto.CommentsDto;
 
 @Service
 @Transactional
@@ -31,8 +31,19 @@ public class BbsService {
 		return dao.getBbsSearchList(param);
 	}
 	
-	public List<BbsDto> getBbsSearchPageList(BbsParam param) {
-		return dao.getBbsSearchPageList(param);
+	public BbsListResponseDto getBbsSearchPageList(String search, String choice, int pageNumber) {
+		BbsParam param = new BbsParam(search, choice, pageNumber);
+		int sn = param.getPageNumber(); 
+		int start = sn * 10 + 1;
+		int end = (sn + 1) * 10;
+		param.setStart(start);
+		param.setEnd(end);
+		
+		List<BbsDto> list = dao.getBbsSearchPageList(param);
+		int count = list.size();
+		
+		BbsListResponseDto response = new BbsListResponseDto(list, count);
+		return response;
 	}
 	
 	public int getBbsCount(BbsParam param) {

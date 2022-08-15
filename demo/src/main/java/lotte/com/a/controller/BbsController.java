@@ -1,9 +1,6 @@
 package lotte.com.a.controller;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lotte.com.a.dto.BbsDto;
+import lotte.com.a.dto.BbsListResponseDto;
 import lotte.com.a.dto.BbsParam;
 import lotte.com.a.service.BbsService;
 
@@ -81,28 +79,16 @@ public class BbsController {
 	 * @return
 	 */
 	@GetMapping("/bbss")
-	public Map<String, Object> getBbsReactList(
+	public BbsListResponseDto getBbsReactList(
 			@RequestParam(value = "search", required = false) String search,
 			@RequestParam(value = "choice", required = false) String choice,
 			@RequestParam("pageNumber") int pageNumber	
 			) {
 		logger.info("BbsController getBbsReactList : " + new Date());
-		System.out.println(search + "/" + choice + "/" + pageNumber);
-		BbsParam param = new BbsParam(search, choice, pageNumber);
-		int sn = param.getPageNumber(); 
-		int start = sn * 10 + 1;
-		int end = (sn + 1) * 10;
-		param.setStart(start);
-		param.setEnd(end);
+		
+		BbsListResponseDto response = service.getBbsSearchPageList(search, choice, pageNumber);
 
-		List<BbsDto> list = service.getBbsSearchPageList(param);
-		int count = service.getBbsCount(param);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("bbslist", list);
-		map.put("cnt", count);
-
-		return map;
+		return response;
 	}
 
 	
