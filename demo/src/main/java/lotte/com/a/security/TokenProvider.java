@@ -62,7 +62,6 @@ public class TokenProvider {
 						.setSigningKey(SECRET_KEY)
 						.parseClaimsJws(token)		//토큰 디코딩
 						.getBody();
-1
 		return claims.getSubject();
 	}
 
