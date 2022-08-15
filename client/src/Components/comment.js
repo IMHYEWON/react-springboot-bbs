@@ -57,7 +57,6 @@ function Comments(props) {
             
 
             {/* Comment Lists */}    
-            {console.log(props.CommentLists)}
             {props.CommentLists && props.CommentLists.map((comment, index) => (
                 
                 <div style={{paddingLeft:'10px'}}>

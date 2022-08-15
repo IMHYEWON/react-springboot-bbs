@@ -5,6 +5,9 @@ import Bbslist from "./Components/bbslist";
 import Bbswrite from "./Components/bbswrite";
 import Login from "./Components/login";
 import Signup from "./Components/Signup";
+import Logout from "./Components/logout";
+
+// import Mypage from "./Components/mypage";
 import Main from "./Components/home";
 import Footer from "./Components/footer";
 import { Typography } from '@material-ui/core';
@@ -17,6 +20,7 @@ function App() {
       <header className="py-4">
         <div className="container text-center">
           <h4>Bulletin Board</h4>
+          <Logout/>
         </div>
       </header>
 
@@ -56,9 +60,9 @@ function App() {
                 </li>
 
                   <li className="nav-item">
-                    <Link className="nav-link" to="/pdslist">자료실</Link>
+                    <Link className="nav-link" to="/mypage">자료실</Link>
                   </li>
-     
+
                 </ul>
             </div>
           </div>
@@ -77,6 +81,7 @@ function App() {
                 <Route path="/bbsdetail/:seq" element={<Bbsdetail />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/register" element={<Signup />}></Route>
+                {/* <Route path="/mypage" element={<MyPage />}></Route> */}
 
                 {/* <Route path="/bbsupdate" element={<BbsUpdate />}></Route> */}
 

@@ -41,8 +41,12 @@ export function call(api, method, request) {
       console.log(error);
   });
   } else if (method == 'DELETE') {
-    return axios.delete(options.url)
-    .then(res => { 
+    return axios.delete(options.url,
+      {
+        params : request,
+        headers : options.headers
+      }
+    ).then(res => { 
       return res.data;
     })
     .catch(function(error){

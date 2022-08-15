@@ -10,7 +10,6 @@ function Bbs(props) {
     return (
         
         <div>
-            {console.log(props.bbslist)} 
             {props.bbslist && props.bbslist.map((post, index) => (
             
             <div className="info_post">
