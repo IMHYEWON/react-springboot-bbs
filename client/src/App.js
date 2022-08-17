@@ -53,8 +53,8 @@ function App() {
                     aria-expanded="false">게시판</div>
 
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link className="dropdown-item" to="/bbslist" onClick={onClickHandler}>글목록</Link>
-                    <Link className="dropdown-item" to="/bbswrite" onClick={onClickHandler}>글추가</Link>
+                    <Link className="dropdown-item" to="/bbslist" >글목록</Link>
+                    <Link className="dropdown-item" to="/bbswrite">글추가</Link>
                   </div>
                 </li>
                 <li className="nav-item dropdown">
