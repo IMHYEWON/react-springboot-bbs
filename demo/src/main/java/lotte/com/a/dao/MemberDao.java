@@ -9,7 +9,8 @@ import lotte.com.a.dto.MemberDto;
 @Repository
 public interface MemberDao {
 
-	int getId(String id);
 	int account(MemberDto dto);
 	MemberDto login(MemberDto dto);
+	MemberDto findById(String id);
+	
 }

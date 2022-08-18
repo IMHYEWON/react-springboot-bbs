@@ -5,11 +5,12 @@
   
 <mapper namespace="lotte.com.a.dao.MemberDao">
 
-<select id="getId" parameterType="java.lang.String" resultType="java.lang.Integer">
-	select count(*)
+<select id="findById" parameterType="java.lang.String" resultType="lotte.com.a.dto.MemberDto">
+	select id, pwd, name, email, auth
 	from member
 	where id=#{id}
 </select>
+
 
 <insert id="account" parameterType="lotte.com.a.dto.MemberDto">
 	insert into member(id, pwd, name, email, auth)

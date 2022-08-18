@@ -16,8 +16,8 @@ public class MemberService {
 	MemberDao dao;
 	
 	public boolean getId(String id) {
-		int n = dao.getId(id);
-		return n>0?true:false;
+		MemberDto originalUser = dao.findById(id);
+		return originalUser!=null?true:false;
 	}
 	
 	public boolean account(MemberDto paramDto, final PasswordEncoder encoder) {
@@ -35,7 +35,7 @@ public class MemberService {
 	
 	public MemberDto login(MemberDto paramDto, final PasswordEncoder encoder) {
 		
-		final MemberDto originalUser = dao.login(paramDto);
+		final MemberDto originalUser = dao.findById(paramDto.getId());
 		
 		if (originalUser != null && encoder.matches(paramDto.getPwd(), originalUser.getPwd())) {
 			return originalUser;
