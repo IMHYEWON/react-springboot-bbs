@@ -7,8 +7,8 @@ public class MemberDto {
 
 	private final String id;
 	private final String pwd;
-	private String name;
-	private String email;
+	private final String name;
+	private final String email;
 	private int auth;
 	private String token; 
 	

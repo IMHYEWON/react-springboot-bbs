@@ -5,6 +5,8 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,9 @@ public class MemberController {
 	@Autowired
 	private TokenProvider tokenProvider;
 
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
+	
 	@GetMapping("/{id}")
 	public String getId(@PathVariable("id") String id) {
 		logger.info("MemberController getId : " + new Date());
@@ -44,7 +49,7 @@ public class MemberController {
 	@PostMapping()
 	public String createAccount(@RequestBody MemberDto dto) {
 		logger.info("MemberController createAccount : " + new Date());
-		boolean b = service.account(dto);
+		boolean b = service.account(dto, passwordEncoder);
 		if(!b) {
 			return "NO";
 		}
@@ -57,7 +62,7 @@ public class MemberController {
 			@RequestParam("pwd") String pwd
 			) {
 		logger.info("MemberController login : " + new Date());
-		MemberDto mem = service.login(new MemberDto(id, pwd));
+		MemberDto mem = service.login(new MemberDto(id, pwd,null,null), passwordEncoder);
 		
 		if (mem != null) {
 			// 사용자 정보 바탕으로 로그인 수정 
