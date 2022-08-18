@@ -58,7 +58,7 @@ export function call(api, method, request) {
 }
 
 export function login(memberDto) {
-  return call("/member/login", 'GET', memberDto).then((response) => {
+  return call("/member/login", 'POST', memberDto).then((response) => {
     if (response.token) {
       
       // local storage에 토큰 저장

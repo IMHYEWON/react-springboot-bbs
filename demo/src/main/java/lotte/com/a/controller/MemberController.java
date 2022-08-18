@@ -56,13 +56,10 @@ public class MemberController {
 		return "OK";		
 	}
 	
-	@GetMapping("/login")
-	public MemberDto login(
-			@RequestParam("id") String id,
-			@RequestParam("pwd") String pwd
-			) {
+	@PostMapping("/login")
+	public MemberDto login(@RequestBody MemberDto dto) {
 		logger.info("MemberController login : " + new Date());
-		MemberDto mem = service.login(new MemberDto(id, pwd,null,null), passwordEncoder);
+		MemberDto mem = service.login(new MemberDto(dto.getId(), dto.getPwd(), null, null), passwordEncoder);
 		
 		if (mem != null) {
 			// 사용자 정보 바탕으로 로그인 수정 
