@@ -9,6 +9,7 @@ public class MemberDto {
 	private final String pwd;
 	private final String name;
 	private final String email;
+	private final String img;
 	private int auth;
 	private String token; 
 	

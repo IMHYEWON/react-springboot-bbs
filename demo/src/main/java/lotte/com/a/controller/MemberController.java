@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,7 +60,7 @@ public class MemberController {
 	@PostMapping("/login")
 	public MemberDto login(@RequestBody MemberDto dto) {
 		logger.info("MemberController login : " + new Date());
-		MemberDto mem = service.login(new MemberDto(dto.getId(), dto.getPwd(), null, null), passwordEncoder);
+		MemberDto mem = service.login(new MemberDto(dto.getId(), dto.getPwd(), null, null, null), passwordEncoder);
 		
 		if (mem != null) {
 			// 사용자 정보 바탕으로 로그인 수정 
@@ -70,6 +71,16 @@ public class MemberController {
 			// 수정 예정
 			return null;
 		}
+	}
+	
+	@PutMapping("/imgs")
+	public String changeProfileImg(@RequestBody MemberDto dto) {
+		logger.info("MemberController changeProfileImg : " + new Date());
+		boolean b = service.changeProfileImg(dto);
+		if(!b) {
+			return "NO";
+		}
+		return "OK";		
 	}
 }
 

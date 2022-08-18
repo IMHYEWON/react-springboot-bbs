@@ -11,10 +11,16 @@
 	where id=#{id}
 </select>
 
+<update id="changeProfileImg" parameterType="lotte.com.a.dto.MemberDto" >
+	update member
+	set img=#{img}
+	where id=#{id}
+</update>
+
 
 <insert id="account" parameterType="lotte.com.a.dto.MemberDto">
-	insert into member(id, pwd, name, email, auth)
-	values(#{id}, #{pwd}, #{name}, #{email}, 3)
+	insert into member(id, pwd, name, email, img, auth)
+	values(#{id}, #{pwd}, #{name}, #{email}, #{img}, 3)
 </insert>
 
 <select id="login" parameterType="lotte.com.a.dto.MemberDto" 
