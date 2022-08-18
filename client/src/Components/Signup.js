@@ -13,12 +13,20 @@ function SignUp() {
 
   const [Id, setId] = useState("");
   const [ConfirmId, setConfirmId] = useState(false);
+  const [fileImage, setFileImage] = useState("");
 
   const onIdHandler = (event) => {
     setId(event.currentTarget.value)
   }
 
-  
+  const saveFileImage = (e) =>{
+    // @ts-ignore
+    setFileImage(URL.createObjectURL(e.target.files[0]));
+  };
+  const deleteFileImage = () =>{
+    URL.revokeObjectURL(fileImage);
+    setFileImage("");
+  };
 
   const onConfirmIdHandler = () => {
     checkid(Id)
@@ -63,6 +71,14 @@ function SignUp() {
       {/* submit 버튼을 누르면 handleSubmit이 실행됨. */}
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
+          <input type='file' id='profileImg' accept='image/*' name='file'  onChange={saveFileImage} />
+          <div>{fileImage && ( <img alt="sample" src={fileImage} style={{ margin: "auto" }} /> )}
+          <button style={{cursor: "pointer",}} onClick={() => deleteFileImage()} > 삭제 </button>
+          </div>
+          
+          </Grid>
+        <Grid item xs={12} sm={8}>
+        
           <TextField
             variant="outlined"
             required

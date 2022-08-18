@@ -20,13 +20,19 @@ public class MemberService {
 		return originalUser!=null?true:false;
 	}
 	
+	public boolean changeProfileImg(MemberDto paramDto) {
+		return dao.changeProfileImg(paramDto) > 0 ?true:false;
+	}
+	
+	
 	public boolean account(MemberDto paramDto, final PasswordEncoder encoder) {
 		
 		final MemberDto newUser = new MemberDto(
 									paramDto.getId(),
 									encoder.encode(paramDto.getPwd()),
 									paramDto.getName(),
-									paramDto.getEmail()
+									paramDto.getEmail(),
+									paramDto.getImg()
 									);
 		
 		int n = dao.account(newUser);

@@ -10,6 +10,7 @@ import lotte.com.a.dto.MemberDto;
 public interface MemberDao {
 
 	int account(MemberDto dto);
+	int changeProfileImg(MemberDto dto);
 	MemberDto login(MemberDto dto);
 	MemberDto findById(String id);
 	
