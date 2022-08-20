@@ -17,7 +17,7 @@ function Bbs(props) {
                 <div className="writer">
                     <div className="profile">
                     {/* <a className="img"></a> */}
-                    <img className="img" src={'/images/profile.jpg'} alt={""}/>
+                    <img className="img" src={post.img} alt={""}/>
                     </div>
                     <div className="writer-info">
                         <span className="name_author">{post.id}</span>
