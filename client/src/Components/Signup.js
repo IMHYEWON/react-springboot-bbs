@@ -20,7 +20,6 @@ function SignUp() {
   }
 
   const saveFileImage = (e) =>{
-    // @ts-ignore
     setFileImage(URL.createObjectURL(e.target.files[0]));
   };
   const deleteFileImage = () =>{
@@ -49,7 +48,7 @@ function SignUp() {
 
     // ApiService의 signin 메서드를 사용 해 로그인.
     if (ConfirmId == true) {
-      signUp({ id: id, name: name, email:email, pwd: password });
+      signUp({ id: id, name: name, email:email, pwd: password, img:fileImage });
     } else {
       alert("중복체크를 해주세요");
     }
@@ -72,7 +71,7 @@ function SignUp() {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
           <input type='file' id='profileImg' accept='image/*' name='file'  onChange={saveFileImage} />
-          <div>{fileImage && ( <img alt="sample" src={fileImage} style={{ margin: "auto" }} /> )}
+          <div>{fileImage && ( <img alt="sample" src={fileImage} style={{ margin: "auto", height:'300px', }} /> )}
           <button style={{cursor: "pointer",}} onClick={() => deleteFileImage()} > 삭제 </button>
           </div>
           
