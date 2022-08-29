@@ -33,7 +33,6 @@
 .row .col .firstimage {
     border: 10px solid transparent;
     min-height: 452px;
-    background-image: url('/images/2.jpg');
     background-position: 50% 50%;
     background-size: cover;
 }
@@ -41,7 +40,6 @@
 .row .col .secondimage {
     border: 10px solid transparent;
     min-height: 452px;
-    background-image: url('/images/2.jpg');
     background-position: 50% 50%;
     background-size: cover;
 }
