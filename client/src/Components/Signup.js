@@ -1,13 +1,10 @@
 import * as React from 'react';
-import { useState, useEffect } from "react";
-
-import {Avatar, Button, CssBaseline, TextField, FormControlLabel,Checkbox ,Grid , Box ,Typography, Link,Container  } from '@material-ui/core';
-import { createTheme, ThemeProvider } from '@material-ui/core';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { signUp, checkid } from '../Service/ApiService';
+import { useState } from "react";
+import { TextField, Grid, Typography, Container  } from '@mui/material';
 import { BlackButton } from './button';
+import { signUp, checkid } from '../Service/ApiService';
 import "./button.css";
+
 function SignUp() {
 
 

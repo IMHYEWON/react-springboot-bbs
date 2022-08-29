@@ -1,10 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { call } from '../Service/ApiService';
 import Comments from './comment';
 import "./bbsdetail.css";
-import { API_BASE_URL } from "../app-config";
 
 export default function Bbsdetail(){
     //const s = location.state.seq;

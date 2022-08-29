@@ -10,7 +10,6 @@ import Logout from "./Components/logout";
 // import Mypage from "./Components/mypage";
 import Main from "./Components/home";
 import Footer from "./Components/footer";
-import { Typography } from '@material-ui/core';
 
 // import './main.css';
 
